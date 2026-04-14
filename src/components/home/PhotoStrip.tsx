@@ -5,9 +5,9 @@ import { useT } from '@/lib/LocaleContext';
 // Photos — drop real files in /public/assets/photos/ with these names to activate
 const photos = [
   { src: '/assets/photos/lls-hope.jpg', caption: 'LLS Light the Night · HOPE' },
-  { src: '/assets/photos/lls-sunset.jpg', caption: 'San Diego · 2024' },
-  { src: '/assets/photos/lls-stage.jpg', caption: 'VOY opening night' },
-  { src: '/assets/photos/lls-booth.jpg', caption: 'Community outreach' },
+  { src: '/assets/photos/lls-sunset.jpg', caption: 'Natalia · Light the Night walk' },
+  { src: '/assets/photos/lls-stage.jpg', caption: 'Visionaries of the Year · opening night' },
+  { src: '/assets/photos/lls-booth.jpg', caption: 'Light the Night · lanterns' },
 ];
 
 export function PhotoStrip() {
