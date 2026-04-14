@@ -4,6 +4,7 @@ import { PhotoStrip } from '@/components/home/PhotoStrip';
 import { Pillars } from '@/components/home/Pillars';
 import { StoryTeaser } from '@/components/home/StoryTeaser';
 import { Wordmark } from '@/components/home/Wordmark';
+import { SupportSection } from '@/components/home/SupportSection';
 import { Disclaimer } from '@/components/home/Disclaimer';
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <StoryTeaser />
       <PhotoStrip />
       <Wordmark />
+      <SupportSection />
       <Disclaimer />
     </>
   );

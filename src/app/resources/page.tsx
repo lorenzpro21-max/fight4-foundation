@@ -1,35 +1,49 @@
 'use client';
 
 import { useState } from 'react';
-import { useT } from '@/lib/LocaleContext';
+import { useT, useLocale } from '@/lib/LocaleContext';
+import { sampleResources } from '@/lib/resources';
+import { ResourceCard } from '@/components/ResourceCard';
 
 export default function Resources() {
   const t = useT();
+  const { locale } = useLocale();
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    // TODO: wire to real email service (ConvertKit, Beehiiv, Resend)
-    setSubmitted(true);
+    setError('');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, locale }),
+      });
+      if (!res.ok) throw new Error('subscribe failed');
+      setSubmitted(true);
+    } catch {
+      setError(locale === 'es' ? 'Algo falló. Intenta de nuevo.' : 'Something went wrong. Please try again.');
+    }
   };
 
   return (
-    <div className="max-w-[1080px] mx-auto px-6 lg:px-12 py-16 lg:py-24">
+    <div className="max-w-[1200px] mx-auto px-6 lg:px-12 py-16 lg:py-20">
       <div className="flex items-center gap-3 mb-8">
         <span className="w-8 h-px bg-[color:var(--color-burgundy)]" />
         <span className="text-[12px] font-semibold tracking-widest uppercase text-[color:var(--color-burgundy)]">{t.resources.eyebrow}</span>
       </div>
 
-      <h1 className="font-serif font-normal text-[44px] sm:text-[58px] lg:text-[72px] leading-[1.05] tracking-tight text-[color:var(--color-ink)] max-w-[16ch] mb-8">
-        {t.resources.h1}
+      <h1 className="font-serif font-normal text-[42px] sm:text-[54px] lg:text-[66px] leading-[1.06] tracking-tight text-[color:var(--color-ink)] max-w-[18ch] mb-8">
+        {locale === 'es' ? 'Una biblioteca que confías. Revisada por quienes la vivieron.' : 'A library you can trust. Reviewed by the people who lived it.'}
       </h1>
 
       <p className="text-[18px] leading-relaxed text-[color:var(--color-ink-soft)] max-w-[60ch] mb-10">{t.resources.sub}</p>
 
       {/* Email capture */}
-      <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 max-w-[560px] mb-16">
+      <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 max-w-[560px] mb-4">
         <input
           type="email"
           value={email}
@@ -44,24 +58,46 @@ export default function Resources() {
           disabled={submitted}
           className="bg-[color:var(--color-burgundy)] text-[color:var(--color-bg)] px-7 py-4 rounded-md text-[15px] font-medium hover:bg-[color:var(--color-burgundy-dark)] transition-colors disabled:opacity-50 whitespace-nowrap"
         >
-          {submitted ? '✓' : t.resources.button}
+          {submitted ? '✓ ' + (locale === 'es' ? 'Guardado' : 'Saved') : t.resources.button}
         </button>
       </form>
-
       {submitted && (
-        <p className="text-[15px] text-[color:var(--color-burgundy)] -mt-12 mb-16 max-w-[560px]">
-          {t.resources.thanks}
-        </p>
+        <p className="text-[14px] text-[color:var(--color-burgundy)] mb-16 max-w-[560px]">{t.resources.thanks}</p>
       )}
+      {error && (
+        <p className="text-[14px] text-[color:var(--color-burgundy)] mb-16 max-w-[560px]">{error}</p>
+      )}
+      {!submitted && !error && <div className="mb-16" />}
+
+      {/* Real sample resources */}
+      <div className="border-t border-[color:var(--color-line)] pt-16">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-10">
+          <div>
+            <div className="text-[11.5px] font-semibold tracking-widest uppercase text-[color:var(--color-muted)] mb-3">
+              {locale === 'es' ? 'MUESTRA · Recursos verificados' : 'SAMPLE · Vetted Resources'}
+            </div>
+            <h2 className="font-serif text-[32px] lg:text-[40px] font-normal tracking-tight leading-tight max-w-[22ch]">
+              {locale === 'es' ? 'Un vistazo a lo que está en la biblioteca.' : 'A preview of what\'s in the library.'}
+            </h2>
+          </div>
+          <p className="text-[13.5px] text-[color:var(--color-muted)] max-w-[38ch]">
+            {locale === 'es' ? 'Cada recurso tiene una nota personal de Natalia explicando por qué lo recomienda y cómo usarlo.' : "Each resource has a personal note from Natalia explaining why she recommends it and how to use it."}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-20">
+          {sampleResources.map((r) => <ResourceCard key={r.id} r={r} />)}
+        </div>
+      </div>
 
       {/* What we're building */}
-      <div className="border-t border-[color:var(--color-line)] pt-12">
+      <div className="border-t border-[color:var(--color-line)] pt-16">
         <h2 className="font-serif text-[28px] lg:text-[34px] font-normal tracking-tight leading-tight mb-10">{t.resources.categoriesH}</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {t.resources.categories.map((c) => (
-            <div key={c.t} className="bg-[color:var(--color-bg-card)] border border-[color:var(--color-line)] rounded-lg p-7 hover:border-[color:var(--color-ink)] transition-colors">
-              <h3 className="font-serif text-[22px] font-medium mb-3">{c.t}</h3>
-              <p className="text-[14.5px] leading-relaxed text-[color:var(--color-ink-soft)]">{c.d}</p>
+            <div key={c.t} className="bg-[color:var(--color-bg-card)] border border-[color:var(--color-line)] rounded-lg p-6 hover:border-[color:var(--color-ink)] transition-colors">
+              <h3 className="font-serif text-[19px] font-medium mb-2.5">{c.t}</h3>
+              <p className="text-[13.5px] leading-relaxed text-[color:var(--color-ink-soft)]">{c.d}</p>
             </div>
           ))}
         </div>

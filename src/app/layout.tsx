@@ -20,6 +20,25 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: 'FIGHT4 Foundation',
+  alternateName: 'F4 Cancer Foundation',
+  description: 'A personally-vetted resource platform for young adults with cancer. By the people, for the people.',
+  url: 'https://fight4-foundation.vercel.app',
+  logo: 'https://fight4-foundation.vercel.app/icon',
+  sameAs: ['https://instagram.com/fight4lls'],
+  founder: {
+    '@type': 'Person',
+    name: 'Natalia Menéndez',
+    jobTitle: 'Founder',
+    description: 'SMZL survivor, LLS Visionaries of the Year candidate, Community Outreach Volunteer',
+  },
+  areaServed: 'Worldwide',
+  knowsLanguage: ['en', 'es'],
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable} ${hand.variable}`}>
@@ -30,7 +49,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             --font-sans: ${sans.style.fontFamily}, system-ui, sans-serif;
             --font-hand: ${hand.style.fontFamily}, cursive;
           }
+          html { scroll-behavior: smooth; }
         `}</style>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <LocaleProvider>
           <Nav />
           <main className="flex-1">{children}</main>
