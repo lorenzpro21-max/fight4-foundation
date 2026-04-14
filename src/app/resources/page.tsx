@@ -90,6 +90,25 @@ export default function Resources() {
         </div>
       </div>
 
+      {/* Suggest a resource */}
+      <div className="mb-20 p-8 lg:p-12 bg-[color:var(--color-burgundy-soft)] border border-[color:var(--color-burgundy)]/20 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <h3 className="font-serif text-[24px] lg:text-[28px] font-medium leading-tight mb-2 max-w-[32ch]">
+            {locale === 'es' ? '¿Conoces un recurso que deberíamos verificar?' : 'Know a resource we should vet?'}
+          </h3>
+          <p className="text-[14.5px] text-[color:var(--color-ink-soft)] max-w-[56ch]">
+            {locale === 'es' ? 'Revisamos cada sugerencia antes de agregarla a la biblioteca. Cuéntanos qué recurso te ayudó y por qué.' : "We review every suggestion before adding it to the library. Tell us what resource helped you and why."}
+          </p>
+        </div>
+        <a
+          href="mailto:hello@fight4foundation.org?subject=Resource%20suggestion"
+          className="bg-[color:var(--color-burgundy)] text-[color:var(--color-bg)] px-6 py-3.5 rounded-md text-[14px] font-medium hover:bg-[color:var(--color-burgundy-dark)] transition-colors inline-flex items-center gap-2 whitespace-nowrap self-start md:self-auto"
+        >
+          {locale === 'es' ? 'Sugerir un recurso' : 'Suggest a resource'}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+
       {/* What we're building */}
       <div className="border-t border-[color:var(--color-line)] pt-16">
         <h2 className="font-serif text-[28px] lg:text-[34px] font-normal tracking-tight leading-tight mb-10">{t.resources.categoriesH}</h2>
