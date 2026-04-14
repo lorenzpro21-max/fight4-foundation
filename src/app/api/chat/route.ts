@@ -1,11 +1,10 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenAI } from '@google/genai';
 import { buildSystemPrompt } from '@/lib/askSystemPrompt';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-// ---- Simple in-memory rate limit (per IP, per hour).
-// MVP only. Replace with Upstash / Vercel KV for serious production.
+// Rate limit (in-memory, per IP, per hour)
 const WINDOW_MS = 60 * 60 * 1000;
 const MAX_REQ = 25;
 const buckets = new Map<string, { count: number; reset: number }>();
@@ -32,15 +31,23 @@ function sanitize(messages: unknown): ClientMessage[] {
       typeof (m as ClientMessage).content === 'string' &&
       ((m as ClientMessage).role === 'user' || (m as ClientMessage).role === 'assistant'),
     )
-    .slice(-20) // cap history
+    .slice(-20)
     .map((m) => ({ role: m.role, content: (m.content as string).slice(0, 4000) }));
 }
 
+// Gemini uses 'user' and 'model' as roles, not 'user' and 'assistant'
+function toGeminiContents(messages: ClientMessage[]) {
+  return messages.map((m) => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }],
+  }));
+}
+
 export async function POST(req: Request) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return new Response(
-      JSON.stringify({ error: 'server_not_configured', message: 'Ask F4 is not yet configured. Set ANTHROPIC_API_KEY in Vercel env vars.' }),
+      JSON.stringify({ error: 'server_not_configured', message: 'Ask F4 is not yet configured. Set GEMINI_API_KEY in Vercel env vars.' }),
       { status: 503, headers: { 'content-type': 'application/json' } },
     );
   }
@@ -65,22 +72,24 @@ export async function POST(req: Request) {
   }
   const locale: 'en' | 'es' = body.locale === 'es' ? 'es' : 'en';
 
-  const anthropic = new Anthropic({ apiKey });
+  const ai = new GoogleGenAI({ apiKey });
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        const s = await anthropic.messages.stream({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 800,
-          system: buildSystemPrompt(locale),
-          messages,
+        const response = await ai.models.generateContentStream({
+          model: 'gemini-2.0-flash',
+          config: {
+            systemInstruction: buildSystemPrompt(locale),
+            maxOutputTokens: 900,
+            temperature: 0.4,
+          },
+          contents: toGeminiContents(messages),
         });
-        for await (const event of s) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            controller.enqueue(encoder.encode(event.delta.text));
-          }
+        for await (const chunk of response) {
+          const text = chunk.text;
+          if (text) controller.enqueue(encoder.encode(text));
         }
         controller.close();
       } catch (err) {
