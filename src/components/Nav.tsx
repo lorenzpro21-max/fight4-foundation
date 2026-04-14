@@ -26,7 +26,7 @@ export function Nav() {
       <nav className="border-b border-[color:var(--color-line)] bg-[color:var(--color-bg)] sticky top-0 z-40 backdrop-blur-sm">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center gap-4">
           <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3.5 text-[color:var(--color-ink)] no-underline">
-            <LogoMark />
+            <LogoMark breathe />
             <div className="flex flex-col leading-tight">
               <span className="font-serif text-[16px] sm:text-[18px] font-medium tracking-tight">FIGHT4 Foundation</span>
               <span className="text-[10.5px] font-medium text-[color:var(--color-muted)] tracking-wide mt-0.5 hidden sm:inline">{t.nav.tagline}</span>

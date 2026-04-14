@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useT } from '@/lib/LocaleContext';
 import Image from 'next/image';
 import { CountUp } from '@/components/CountUp';
+import { HeroAmbient } from './HeroAmbient';
+import { FounderQuotes } from './FounderQuotes';
 
 // Hero entrance — all elements stagger in under the preloader curtain,
 // so by the time the curtain lifts the hero is assembled. On subsequent
@@ -17,7 +19,8 @@ const base = {
 export function Hero() {
   const t = useT();
   return (
-    <section className="max-w-[1280px] mx-auto px-6 lg:px-12 py-16 lg:py-20 grid lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-18 items-start">
+    <section className="relative max-w-[1280px] mx-auto px-6 lg:px-12 py-16 lg:py-20 grid lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-18 items-start">
+      <HeroAmbient />
       <div>
         <div className="flex items-center gap-3 mb-9" style={{ ...base, animationDelay: '0.1s' }}>
           <span className="w-8 h-px bg-[color:var(--color-burgundy)]" />
@@ -70,10 +73,11 @@ export function Hero() {
             width={168}
             height={168}
             className="w-full h-full object-cover"
+            style={{ animation: 'f4-ken-burns 24s ease-in-out infinite' }}
             priority
           />
         </div>
-        <p className="font-serif text-[19px] leading-relaxed text-[color:var(--color-ink)] mb-5">{t.founder.quote}</p>
+        <FounderQuotes />
         <div className="text-[14px] font-semibold text-[color:var(--color-ink)] mb-1">{t.founder.name}</div>
         <div className="text-[13px] text-[color:var(--color-muted)] leading-snug">{t.founder.role}</div>
         <div className="mt-5 pt-5 border-t border-[color:var(--color-line)] font-serif italic text-[14px] text-[color:var(--color-muted)]">{t.founder.closing}</div>
