@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FIGHT4 Foundation — Verified cancer resources for young adults</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF8F3;
+    --bg-card: #FFFFFF;
+    --ink: #1A1416;
+    --ink-soft: #4A3F42;
+    --muted: #706367;
+    --line: #E8E0D6;
+    --burgundy: #8B1E2B;
+    --burgundy-dark: #6E1622;
+    --burgundy-soft: #F5E8EA;
+    --accent: #3F5A6E;  /* muted slate blue — secondary, serious */
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+
+  /* ---------- Top trust bar ---------- */
+  .trust-bar {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 10px 48px;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .trust-bar-items { display: flex; gap: 32px; }
+  .trust-bar-items span { opacity: 0.75; display: flex; align-items: center; gap: 8px; }
+  .trust-bar-items .dot { width: 6px; height: 6px; background: #6FBF73; border-radius: 50%; display: inline-block; }
+  .trust-bar a { opacity: 0.75; text-decoration: none; border-bottom: 1px solid rgba(251,248,243,0.3); padding-bottom: 1px; }
+
+  /* ---------- Nav ---------- */
+  nav {
+    padding: 22px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 14px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo-stack { display: flex; flex-direction: column; line-height: 1; }
+  .logo-stack small {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .logo-mark { position: relative; width: 32px; height: 32px; flex-shrink: 0; }
+  .logo-mark span {
+    position: absolute; width: 17px; height: 17px; border-radius: 50%;
+  }
+  .logo-mark span:nth-child(1) { background: var(--burgundy);   top: 0;  left: 7.5px; }
+  .logo-mark span:nth-child(2) { background: #A8C088;           top: 7.5px; right: 0; }
+  .logo-mark span:nth-child(3) { background: #E5736E;           bottom: 0; left: 7.5px; }
+  .logo-mark span:nth-child(4) { background: var(--accent);     top: 7.5px; left: 0; }
+
+  .nav-links {
+    display: flex; gap: 36px;
+    font-size: 14px; font-weight: 500;
+  }
+  .nav-links a { color: var(--ink-soft); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--burgundy); }
+
+  .nav-cta {
+    background: var(--burgundy);
+    color: var(--bg);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--burgundy-dark); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 48px 60px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    margin-bottom: 36px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 32px; height: 1.5px; background: var(--burgundy);
+  }
+  h1 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+    font-size: clamp(42px, 5.6vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 18ch;
+    margin-bottom: 32px;
+  }
+  h1 .line { display: block; }
+  h1 em {
+    font-style: italic;
+    color: var(--burgundy);
+    font-weight: 400;
+    position: relative;
+  }
+  h1 em::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0.08em;
+    height: 0.12em;
+    background: var(--burgundy-soft);
+    z-index: -1;
+  }
+  .hero-lede {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    letter-spacing: 0.01em;
+  }
+  .sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 54ch;
+    margin-bottom: 36px;
+  }
+  .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 48px; }
+  .cta-primary {
+    background: var(--burgundy);
+    color: var(--bg);
+    padding: 15px 28px;
+    border-radius: 6px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .cta-primary:hover { background: var(--burgundy-dark); }
+  .cta-secondary {
+    color: var(--ink);
+    padding: 15px 22px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .cta-secondary:hover { border-color: var(--ink); }
+
+  /* Stats strip — credibility */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+    max-width: 620px;
+  }
+  .stat .num {
+    font-family: 'Source Serif 4', serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .stat .label {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ---------- Founder card (right side) ---------- */
+  .founder {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 32px;
+    position: relative;
+  }
+  .founder-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    background: var(--burgundy-soft);
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .founder-photo {
+    width: 84px; height: 84px; border-radius: 50%;
+    margin-bottom: 18px;
+    overflow: hidden;
+    background: var(--burgundy-soft);
+    border: 2px dashed var(--burgundy);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--burgundy);
+    position: relative;
+  }
+  .founder-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .founder-photo:has(img[src=""]),
+  .founder-photo:has(img:not([src])) { border: 2px dashed var(--burgundy); }
+  /* When real image loads, hide dashed border */
+  .founder-photo.has-photo { border: none; }
+  .founder-quote {
+    font-family: 'Source Serif 4', serif;
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--ink);
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+  .founder-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .founder-role {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ---------- Partners / Trust network ---------- */
+  .partners {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 48px 40px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .partners-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 22px;
+    text-align: center;
+  }
+  .partners-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .partner-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 18px 12px;
+    height: 84px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg-card);
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .partner-logo:hover {
+    border-color: var(--burgundy);
+    transform: translateY(-1px);
+  }
+  .partner-logo img {
+    max-height: 40px;
+    max-width: 140px;
+    object-fit: contain;
+    display: block;
+  }
+  /* Fallback text label when image missing */
+  .partner-logo .partner-fallback {
+    font-family: 'Source Serif 4', serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+  }
+  .partner-logo img + .partner-fallback { display: none; }
+  .partner-logo img[src=""],
+  .partner-logo img:not([src]) { display: none; }
+  .partner-caption {
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .partners-disclaimer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  @media (max-width: 960px) {
+    .partners-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ---------- Pillars ---------- */
+  .pillars {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 48px 100px;
+    border-top: 1px solid var(--line);
+  }
+  .section-head {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 48px;
+  }
+  .section-head h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    max-width: 24ch;
+    line-height: 1.1;
+  }
+  .section-head .section-meta {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 28ch;
+    text-align: right;
+  }
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .pillar-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .pillar-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .pillar-num {
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    color: var(--burgundy);
+    margin-bottom: 16px;
+    letter-spacing: 0.08em;
+  }
+  .pillar-card h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .pillar-card p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Disclaimer ---------- */
+  .disclaimer {
+    max-width: 1280px;
+    margin: 0 auto 60px;
+    padding: 20px 48px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.55;
+    display: flex;
+    gap: 16px;
+    align-items: start;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  .disclaimer svg { flex-shrink: 0; margin-top: 2px; color: var(--muted); }
+  .disclaimer strong { color: var(--ink-soft); font-weight: 600; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 80px 48px 40px;
+    margin-top: 80px;
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 64px;
+  }
+  .footer-brand {
+    font-family: 'Source Serif 4', serif;
+    font-size: 44px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .footer-brand em { font-style: italic; color: var(--coral, #E5736E); }
+  .footer-tagline {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 16px;
+    opacity: 0.65;
+    max-width: 32ch;
+  }
+  .footer-col h4 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 18px;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 14px;
+    color: var(--bg);
+    opacity: 0.85;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: opacity 0.2s;
+  }
+  .footer-col a:hover { opacity: 1; }
+  .footer-base {
+    max-width: 1280px;
+    margin: 60px auto 0;
+    padding-top: 28px;
+    border-top: 1px solid rgba(251,248,243,0.12);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12.5px;
+    opacity: 0.55;
+  }
+
+  @media (max-width: 960px) {
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .footer-brand { font-size: 32px; }
+    footer { padding: 60px 24px 30px; }
+    .hero { grid-template-columns: 1fr; gap: 48px; padding: 60px 28px; }
+    .nav-links { display: none; }
+    .trust-bar { padding: 10px 20px; font-size: 11.5px; }
+    .trust-bar-items { gap: 18px; }
+    nav { padding: 18px 24px; }
+    .pillars { padding: 60px 24px; }
+    .pillar-grid { grid-template-columns: 1fr 1fr; }
+    .section-head { flex-direction: column; align-items: start; gap: 16px; }
+    .section-head .section-meta { text-align: left; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    h1 { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Trust bar -->
+<div class="trust-bar">
+  <div class="trust-bar-items">
+    <span><span class="dot"></span> Every resource personally verified by a cancer survivor</span>
+    <span>Updated monthly</span>
+  </div>
+  <a href="#disclaimer">Medical disclaimer</a>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="logo-stack">
+      FIGHT4 Foundation
+      <small>By the people, for the people.</small>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#">Resources</a>
+    <a href="#">Quick Guides</a>
+    <a href="#">Our Story</a>
+    <a href="#">#WhatDoYouFight4</a>
+  </div>
+  <a href="#" class="nav-cta">Ask F4 →</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">The FIGHT4 Foundation</div>
+    <p class="hero-lede">By the people, for the people.</p>
+    <h1>
+      <span class="line">By young adults <em>with cancer</em>.</span>
+      <span class="line">For young adults <em>with cancer</em>.</span>
+    </h1>
+    <p class="sub">
+      Financial aid. Support groups. Free experiences. Connections to the organizations that can actually help. Every resource on FIGHT4 is personally reviewed by young adults who've been through treatment — because we've used most of them ourselves.
+    </p>
+    <div class="cta-row">
+      <a href="#" class="cta-primary">
+        Get matched to resources
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#" class="cta-secondary">Browse the library</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num">$90K</div>
+        <div class="label">Raised for blood cancer research via LLS</div>
+      </div>
+      <div class="stat">
+        <div class="num">5</div>
+        <div class="label">Partner organizations in the YA cancer space</div>
+      </div>
+      <div class="stat">
+        <div class="num">100%</div>
+        <div class="label">Resources vetted by young adults who've been there</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Founder card -->
+  <aside class="founder">
+    <span class="founder-tag">Founder</span>
+    <div class="founder-photo" id="founderPhoto" title="Natalia Menéndez, FIGHT4 Foundation founder">
+      <img src="assets/photos/natalia-avatar.png"
+           alt="Natalia Menéndez, founder of FIGHT4 Foundation and LLS Visionaries of the Year candidate"
+           onload="this.parentElement.classList.add('has-photo')"
+           onerror="this.style.display='none'">
+      <span style="font-size: 11px; opacity: 0.7; text-align: center; line-height: 1.3; font-family: Inter, sans-serif; letter-spacing: 0.02em; position: absolute;">Photo:<br>Natalia</span>
+    </div>
+    <p class="founder-quote">
+      "For seven months doctors told me it was meningitis. When I was finally diagnosed — Splenic Marginal Zone Non-Hodgkin's Lymphoma, one month before my 23rd birthday — sorting through resources while in treatment was its own kind of exhausting. FIGHT4 is what I wish I had then."
+    </p>
+    <div class="founder-name">Natalia Menéndez</div>
+    <div class="founder-role">Founder · SMZL survivor · LLS Visionaries of the Year candidate · Personally reviews every resource</div>
+    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); font-family: 'Source Serif 4', serif; font-style: italic; font-size: 14px; color: var(--muted); line-height: 1.5;">
+      By the people, for the people.
+    </div>
+  </aside>
+</section>
+
+<!-- Partners / Network -->
+<section class="partners">
+  <div class="partners-label">Connected to the organizations young adults with cancer actually need</div>
+  <div class="partners-row">
+    <a href="https://www.lls.org" target="_blank" rel="noopener" class="partner-logo">
+      <img src="assets/logos/lls.svg" alt="Leukemia & Lymphoma Society">
+      <span class="partner-fallback">Leukemia &amp;<br>Lymphoma Society</span>
+    </a>
+    <a href="https://bloodcancerunited.org" target="_blank" rel="noopener" class="partner-logo">
+      <img src="assets/logos/blood-cancer-united.svg" alt="Blood Cancer United">
+      <span class="partner-fallback">Blood Cancer<br>United</span>
+    </a>
+    <a href="https://stupidcancer.org" target="_blank" rel="noopener" class="partner-logo">
+      <img src="assets/logos/stupid-cancer.svg" alt="Stupid Cancer">
+      <span class="partner-fallback">Stupid Cancer</span>
+    </a>
+    <a href="https://cactuscancer.org" target="_blank" rel="noopener" class="partner-logo">
+      <img src="assets/logos/cactus-cancer.svg" alt="Cactus Cancer Society">
+      <span class="partner-fallback">Cactus Cancer<br>Society</span>
+    </a>
+    <a href="https://cancerbuddy.org" target="_blank" rel="noopener" class="partner-logo">
+      <img src="assets/logos/cancer-buddy.svg" alt="Cancer Buddy App">
+      <span class="partner-fallback">Cancer Buddy<br>App</span>
+    </a>
+  </div>
+  <div class="partners-disclaimer">Logos shown with permission. Organizations listed are not formal sponsors of FIGHT4 Foundation.</div>
+</section>
+
+<!-- Pillars -->
+<section class="pillars">
+  <div class="section-head">
+    <h2>Four pillars, one mission: no one fights alone.</h2>
+    <div class="section-meta">Our framework for what we cover, what we vet, and how we support young adults worldwide.</div>
+  </div>
+  <div class="pillar-grid">
+    <div class="pillar-card">
+      <div class="pillar-num">01 / NAVIGATING INFORMATION</div>
+      <h3>Cut through the noise</h3>
+      <p>Combing through available resources can be overwhelming. We do the work of finding, summarizing, and organizing — so you don't have to.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">02 / EDUCATION</div>
+      <h3>Break the stigma</h3>
+      <p>Conversations about topics that feel taboo or difficult are how we build understanding, community, and courage in young adults facing cancer.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">03 / RESOURCE HUB</div>
+      <h3>One centralized library</h3>
+      <p>Financial aid, support groups, free experiences, connections to major organizations — all in one place, filterable by your situation.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">04 / GLOBAL NETWORK</div>
+      <h3>No matter where you are</h3>
+      <p>Cancer doesn't stop at borders. Our library is curated with an international mindset, connecting young adults to resources worldwide.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Disclaimer -->
+<div class="disclaimer" id="disclaimer">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <div>
+    <strong>Medical disclaimer.</strong> FIGHT4 summarizes publicly available information from trusted sources like hospitals, healthcare providers, and non-profits. While we aim for accuracy, please verify details with healthcare professionals. We do not cover every resource available and do not endorse any specific organizations. External links are for convenience only. This resource is not a substitute for professional medical care — always consult your medical team and support groups for personalized advice.
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">By the people,<br><em>for the people.</em></div>
+      <p class="footer-tagline">FIGHT4 Foundation — built by young adults with cancer, for young adults with cancer. No one fights alone.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">General Library</a>
+      <a href="#">International</a>
+      <a href="#">Quick Guides</a>
+      <a href="#">Ask F4</a>
+    </div>
+    <div class="footer-col">
+      <h4>Foundation</h4>
+      <a href="#">Our Story</a>
+      <a href="#">The 4 Pillars</a>
+      <a href="#">#WhatDoYouFight4</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Trust</h4>
+      <a href="#">Medical Disclaimer</a>
+      <a href="#">Review Process</a>
+      <a href="#">Suggest a Resource</a>
+      <a href="https://instagram.com/fight4lls" target="_blank">@fight4lls</a>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span>© 2026 FIGHT4 Foundation</span>
+    <span>Every resource personally reviewed by Natalia Menéndez, NHL survivor.</span>
+  </div>
+</footer>
+
+</body>
+</html>

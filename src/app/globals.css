@@ -1,26 +1,70 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-bg: #FBF8F3;
+  --color-bg-card: #FFFFFF;
+  --color-ink: #1A1416;
+  --color-ink-soft: #4A3F42;
+  --color-muted: #706367;
+  --color-line: #E8E0D6;
+  --color-burgundy: #8B1E2B;
+  --color-burgundy-dark: #6E1622;
+  --color-burgundy-soft: #F5E8EA;
+  --color-accent: #3F5A6E;
+  --color-coral: #E5736E;
+  --color-sage: #A8C088;
+  --color-sky: #7DA9C9;
+  --color-orange: #E8833A;
+
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-hand: 'Caveat', cursive;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root { color-scheme: light only; }
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+::selection { background: var(--color-burgundy); color: var(--color-bg); }
+
+.font-serif { font-family: var(--font-serif); }
+.font-hand { font-family: var(--font-hand); }
+
+/* Soft burgundy highlight behind key phrases */
+.mark { position: relative; display: inline; }
+.mark::after {
+  content: "";
+  position: absolute;
+  left: -0.04em; right: -0.04em;
+  bottom: 0.08em; height: 0.16em;
+  background: var(--color-burgundy-soft);
+  z-index: -1;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+a { color: inherit; }
+
+/* Prose */
+.prose-f4 p {
+  font-size: 18px; line-height: 1.7;
+  color: var(--color-ink-soft); margin-bottom: 20px;
+}
+.prose-f4 p.lede {
+  font-family: var(--font-serif); font-size: 22px; line-height: 1.5;
+  color: var(--color-ink); margin-bottom: 32px;
+}
+.prose-f4 h2 {
+  font-family: var(--font-serif); font-size: 32px; line-height: 1.15;
+  letter-spacing: -0.02em; color: var(--color-ink);
+  margin: 48px 0 20px; font-weight: 500;
+}
+.prose-f4 em { color: var(--color-burgundy); font-style: italic; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
