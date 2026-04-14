@@ -46,6 +46,31 @@ html, body {
   background: var(--color-burgundy-soft);
   z-index: -1;
 }
+/* Animated variant — sweeps in L→R on mount with staggered delay.
+   Pass delay via inline style: style={{ '--mark-delay': '0.9s' }} */
+.mark-animated::after {
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: f4-mark-sweep 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+  animation-delay: var(--mark-delay, 0s);
+}
+@keyframes f4-mark-sweep {
+  to { transform: scaleX(1); }
+}
+
+/* Hero entrance keyframes */
+@keyframes f4-hero-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes f4-hero-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes f4-hero-in-scale {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
 
 a { color: inherit; }
 

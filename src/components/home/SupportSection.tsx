@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale } from '@/lib/LocaleContext';
+import { Reveal } from '@/components/Reveal';
 
 export function SupportSection() {
   const { locale } = useLocale();
@@ -26,10 +27,10 @@ export function SupportSection() {
   return (
     <section className="bg-[color:var(--color-ink)] text-[color:var(--color-bg)] py-20 px-6">
       <div className="max-w-[960px] mx-auto text-center">
-        <div className="text-[11.5px] font-semibold tracking-widest uppercase opacity-55 mb-5">{c.eyebrow}</div>
-        <h2 className="font-serif text-[34px] lg:text-[46px] font-normal leading-[1.15] tracking-tight mb-6 max-w-[22ch] mx-auto">{c.h2}</h2>
-        <p className="text-[17px] lg:text-[18px] leading-relaxed opacity-80 max-w-[60ch] mx-auto mb-10">{c.body}</p>
-        <div className="flex gap-3 justify-center flex-wrap mb-6">
+        <Reveal className="text-[11.5px] font-semibold tracking-widest uppercase opacity-55 mb-5">{c.eyebrow}</Reveal>
+        <Reveal as="h2" delay={80} className="font-serif text-[34px] lg:text-[46px] font-normal leading-[1.15] tracking-tight mb-6 max-w-[22ch] mx-auto">{c.h2}</Reveal>
+        <Reveal as="p" delay={180} className="text-[17px] lg:text-[18px] leading-relaxed opacity-80 max-w-[60ch] mx-auto mb-10">{c.body}</Reveal>
+        <Reveal as="div" delay={280} className="flex gap-3 justify-center flex-wrap mb-6">
           <a
             href="https://www.lls.org/donate"
             target="_blank"
@@ -47,8 +48,8 @@ export function SupportSection() {
           >
             {c.secondary}
           </a>
-        </div>
-        <p className="text-[12.5px] opacity-55">{c.note}</p>
+        </Reveal>
+        <Reveal as="p" delay={400} className="text-[12.5px] opacity-55">{c.note}</Reveal>
       </div>
     </section>
   );

@@ -3,25 +3,28 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useT } from '@/lib/LocaleContext';
+import { Reveal } from '@/components/Reveal';
 
 export default function About() {
   const t = useT();
   return (
     <article className="max-w-[820px] mx-auto px-6 lg:px-12 py-16 lg:py-24">
-      <div className="flex items-center gap-3 mb-8">
+      <Reveal className="flex items-center gap-3 mb-8">
         <span className="w-8 h-px bg-[color:var(--color-burgundy)]" />
         <span className="text-[12px] font-semibold tracking-widest uppercase text-[color:var(--color-burgundy)]">{t.about.eyebrow}</span>
-      </div>
+      </Reveal>
 
-      <h1 className="font-serif font-normal text-[44px] sm:text-[58px] lg:text-[66px] leading-[1.05] tracking-tight text-[color:var(--color-ink)] max-w-[20ch] mb-10">
-        {t.about.h1}
-      </h1>
+      <Reveal delay={100}>
+        <h1 className="font-serif font-normal text-[44px] sm:text-[58px] lg:text-[66px] leading-[1.05] tracking-tight text-[color:var(--color-ink)] max-w-[20ch] mb-10">
+          {t.about.h1}
+        </h1>
+      </Reveal>
 
-      <div className="prose-f4">
+      <Reveal as="div" delay={200} className="prose-f4">
         <p className="lede">{t.about.lede}</p>
         <p>{t.about.body1}</p>
         <p>{t.about.body2}</p>
-      </div>
+      </Reveal>
 
       {/* Treatment / Festival diptych */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-16">
@@ -47,20 +50,20 @@ export default function About() {
         <p>{t.about.sectionLLSP1}</p>
 
         {/* VOY photo */}
-        <figure className="my-10 -mx-6 lg:mx-0">
-          <div className="relative w-full aspect-[4/5] max-w-[560px] mx-auto border border-[color:var(--color-line)] rounded-md overflow-hidden">
+        <Reveal as="figure" className="my-10 -mx-6 lg:mx-0" duration={900} distance={24}>
+          <div className="relative w-full aspect-[4/5] max-w-[560px] mx-auto border border-[color:var(--color-line)] rounded-md overflow-hidden group">
             <Image
               src="/assets/photos/natalia-voy.png"
               alt="Natalia Menéndez, 2024 LLS Visionaries of the Year candidate, San Diego"
               fill
               sizes="(max-width: 768px) 100vw, 560px"
-              className="object-cover"
+              className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"
             />
           </div>
           <figcaption className="text-[13px] text-[color:var(--color-muted)] text-center mt-3 italic">
             Natalia as a 2024 LLS Visionaries of the Year candidate, San Diego.
           </figcaption>
-        </figure>
+        </Reveal>
 
         <p>{t.about.sectionLLSP2}</p>
         <p><em>{t.about.sectionLLSP3}</em></p>

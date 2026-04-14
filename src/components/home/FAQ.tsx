@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useLocale } from '@/lib/LocaleContext';
+import { Reveal } from '@/components/Reveal';
 
 const faqs = {
   en: [
@@ -32,10 +33,10 @@ export function FAQ() {
   return (
     <section className="max-w-[1080px] mx-auto px-6 lg:px-12 py-20">
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-4 mb-12">
-        <h2 className="font-serif text-[32px] lg:text-[40px] font-normal tracking-tight leading-[1.1] max-w-[22ch]">{title}</h2>
-        <p className="text-[13.5px] text-[color:var(--color-muted)] max-w-[28ch] lg:text-right">{sub}</p>
+        <Reveal as="h2" className="font-serif text-[32px] lg:text-[40px] font-normal tracking-tight leading-[1.1] max-w-[22ch]">{title}</Reveal>
+        <Reveal as="p" delay={120} className="text-[13.5px] text-[color:var(--color-muted)] max-w-[28ch] lg:text-right">{sub}</Reveal>
       </div>
-      <div className="divide-y divide-[color:var(--color-line)] border-t border-b border-[color:var(--color-line)]">
+      <Reveal as="div" delay={180} className="divide-y divide-[color:var(--color-line)] border-t border-b border-[color:var(--color-line)]">
         {items.map((f, i) => {
           const isOpen = open === i;
           return (
@@ -64,7 +65,7 @@ export function FAQ() {
             </div>
           );
         })}
-      </div>
+      </Reveal>
     </section>
   );
 }
