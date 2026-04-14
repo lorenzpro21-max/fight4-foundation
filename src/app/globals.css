@@ -70,6 +70,185 @@ a { color: inherit; }
   40% { transform: translateY(-4px); opacity: 1; }
 }
 
+/* ==========================================================================
+   PRELOADER — "By young adults with cancer. For young adults with cancer."
+   Timeline (total ~2.5s):
+     0.0s  mount
+     0.15s 4-circle logo scales in, starts gentle breathing
+     0.5s  line 1 "By young adults" fades up
+     1.0s  line 1 "with cancer." fades up + burgundy mark sweeps L→R
+     1.4s  line 2 "For young adults" fades up
+     1.9s  line 2 "with cancer." fades up + mark sweeps
+     2.2s  italic tagline fades in
+     2.5s  exit: clip-path circle expands from logo, curtain dissolves
+   ========================================================================= */
+
+.f4-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  /* Radial warm glow behind text for depth */
+  background-image: radial-gradient(ellipse at 50% 42%, rgba(139, 30, 43, 0.06), transparent 60%);
+  will-change: clip-path, opacity;
+  clip-path: circle(150% at 50% 42%);
+  transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.4s ease 0.4s;
+}
+.f4-preloader.f4-exit {
+  clip-path: circle(0% at 50% 42%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.f4-preloader-inner {
+  position: relative;
+  padding: 0 24px;
+  max-width: 1200px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* 4-circle logo — scaled up, breathing in counter-rotation */
+.f4-preloader-logo {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: scale(0.6);
+  animation:
+    f4-pre-logo-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s forwards,
+    f4-pre-logo-breathe 5s ease-in-out 1.1s infinite;
+}
+.f4-preloader-logo span {
+  position: absolute;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+.f4-preloader-logo span:nth-child(1) { background: var(--color-burgundy); top: 0;    left: 17px;  animation: f4-pre-orbit-1 8s ease-in-out 1.1s infinite; }
+.f4-preloader-logo span:nth-child(2) { background: var(--color-sage);     top: 17px; right: 0;    animation: f4-pre-orbit-2 8s ease-in-out 1.1s infinite; }
+.f4-preloader-logo span:nth-child(3) { background: var(--color-coral);    bottom: 0; left: 17px;  animation: f4-pre-orbit-3 8s ease-in-out 1.1s infinite; }
+.f4-preloader-logo span:nth-child(4) { background: var(--color-accent);   top: 17px; left: 0;     animation: f4-pre-orbit-4 8s ease-in-out 1.1s infinite; }
+
+@keyframes f4-pre-logo-in {
+  from { opacity: 0; transform: scale(0.6) rotate(-20deg); }
+  to   { opacity: 1; transform: scale(1)   rotate(0deg); }
+}
+@keyframes f4-pre-logo-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+@keyframes f4-pre-orbit-1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+@keyframes f4-pre-orbit-2 { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-3px); } }
+@keyframes f4-pre-orbit-3 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes f4-pre-orbit-4 { 0%,100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+
+/* Headline lines — serif, large, tight */
+.f4-preloader-line {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(30px, 6.5vw, 72px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  display: inline-block;
+  max-width: 20ch;
+}
+.f4-preloader-line .f4-part {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(22px);
+  animation: f4-pre-word-in 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.f4-preloader-line .f4-mark {
+  display: inline-block;
+  position: relative;
+  color: var(--color-burgundy);
+  font-style: italic;
+  font-weight: 400;
+  opacity: 0;
+  transform: translateY(22px);
+  animation: f4-pre-word-in 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.f4-preloader-line .f4-mark::after {
+  content: "";
+  position: absolute;
+  left: -0.04em; right: -0.04em;
+  bottom: 0.1em;
+  height: 0.18em;
+  background: var(--color-burgundy-soft);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Line 1 timing */
+.f4-line-1 .f4-part { animation-delay: 0.50s; }
+.f4-line-1 .f4-mark { animation-delay: 0.95s; }
+.f4-line-1 .f4-mark::after { animation: f4-pre-mark-sweep 0.55s cubic-bezier(0.7, 0, 0.3, 1) 1.15s forwards; }
+
+/* Line 2 timing */
+.f4-line-2 .f4-part { animation-delay: 1.40s; }
+.f4-line-2 .f4-mark { animation-delay: 1.85s; }
+.f4-line-2 .f4-mark::after { animation: f4-pre-mark-sweep 0.55s cubic-bezier(0.7, 0, 0.3, 1) 2.05s forwards; }
+
+@keyframes f4-pre-word-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes f4-pre-mark-sweep {
+  to { transform: scaleX(1); }
+}
+
+/* Tagline */
+.f4-preloader-tag {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(14px, 1.5vw, 17px);
+  color: var(--color-muted);
+  margin-top: 28px;
+  opacity: 0;
+  animation: f4-pre-tag-in 0.8s ease-out 2.2s forwards;
+}
+@keyframes f4-pre-tag-in { to { opacity: 0.75; } }
+
+/* Skip hint bottom-right */
+.f4-preloader-hint {
+  position: absolute;
+  bottom: 28px; right: 28px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  opacity: 0;
+  animation: f4-pre-tag-in 0.8s ease-out 2.2s forwards;
+}
+
+/* Reduced motion — skip the show entirely. Preloader.tsx also checks this. */
+@media (prefers-reduced-motion: reduce) {
+  .f4-preloader { display: none; }
+}
+
+/* Mobile tightening */
+@media (max-width: 560px) {
+  .f4-preloader-logo { width: 56px; height: 56px; margin-bottom: 28px; }
+  .f4-preloader-logo span { width: 30px; height: 30px; }
+  .f4-preloader-logo span:nth-child(1) { left: 13px; }
+  .f4-preloader-logo span:nth-child(2) { top: 13px; }
+  .f4-preloader-logo span:nth-child(3) { left: 13px; }
+  .f4-preloader-logo span:nth-child(4) { top: 13px; }
+  .f4-preloader-hint { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

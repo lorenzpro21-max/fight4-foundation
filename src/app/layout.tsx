@@ -4,6 +4,7 @@ import './globals.css';
 import { LocaleProvider } from '@/lib/LocaleContext';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
+import { Preloader } from '@/components/Preloader';
 
 const serif = Source_Serif_4({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-serif-loaded', display: 'swap' });
 const sans = Inter({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-sans-loaded', display: 'swap' });
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <LocaleProvider>
+          <Preloader />
           <Nav />
           <main className="flex-1">{children}</main>
           <Footer />
