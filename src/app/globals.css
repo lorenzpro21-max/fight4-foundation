@@ -125,8 +125,8 @@ a { color: inherit; }
   opacity: 0;
   transform: scale(0.6);
   animation:
-    f4-pre-logo-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s forwards,
-    f4-pre-logo-breathe 5s ease-in-out 1.1s infinite;
+    f4-pre-logo-in 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s forwards,
+    f4-pre-logo-breathe 5s ease-in-out 1.5s infinite;
 }
 .f4-preloader-logo span {
   position: absolute;
@@ -167,8 +167,8 @@ a { color: inherit; }
 .f4-preloader-line .f4-part {
   display: inline-block;
   opacity: 0;
-  transform: translateY(22px);
-  animation: f4-pre-word-in 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  transform: translateY(24px);
+  animation: f4-pre-word-in 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
 }
 .f4-preloader-line .f4-mark {
   display: inline-block;
@@ -177,8 +177,8 @@ a { color: inherit; }
   font-style: italic;
   font-weight: 400;
   opacity: 0;
-  transform: translateY(22px);
-  animation: f4-pre-word-in 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  transform: translateY(24px);
+  animation: f4-pre-word-in 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
 }
 .f4-preloader-line .f4-mark::after {
   content: "";
@@ -193,14 +193,14 @@ a { color: inherit; }
 }
 
 /* Line 1 timing */
-.f4-line-1 .f4-part { animation-delay: 0.50s; }
-.f4-line-1 .f4-mark { animation-delay: 0.95s; }
-.f4-line-1 .f4-mark::after { animation: f4-pre-mark-sweep 0.55s cubic-bezier(0.7, 0, 0.3, 1) 1.15s forwards; }
+.f4-line-1 .f4-part { animation-delay: 0.80s; }
+.f4-line-1 .f4-mark { animation-delay: 1.35s; }
+.f4-line-1 .f4-mark::after { animation: f4-pre-mark-sweep 0.7s cubic-bezier(0.7, 0, 0.3, 1) 1.60s forwards; }
 
 /* Line 2 timing */
-.f4-line-2 .f4-part { animation-delay: 1.40s; }
-.f4-line-2 .f4-mark { animation-delay: 1.85s; }
-.f4-line-2 .f4-mark::after { animation: f4-pre-mark-sweep 0.55s cubic-bezier(0.7, 0, 0.3, 1) 2.05s forwards; }
+.f4-line-2 .f4-part { animation-delay: 2.05s; }
+.f4-line-2 .f4-mark { animation-delay: 2.60s; }
+.f4-line-2 .f4-mark::after { animation: f4-pre-mark-sweep 0.7s cubic-bezier(0.7, 0, 0.3, 1) 2.85s forwards; }
 
 @keyframes f4-pre-word-in {
   to { opacity: 1; transform: translateY(0); }
@@ -217,7 +217,7 @@ a { color: inherit; }
   color: var(--color-muted);
   margin-top: 28px;
   opacity: 0;
-  animation: f4-pre-tag-in 0.8s ease-out 2.2s forwards;
+  animation: f4-pre-tag-in 0.9s ease-out 3.1s forwards;
 }
 @keyframes f4-pre-tag-in { to { opacity: 0.75; } }
 
@@ -230,7 +230,7 @@ a { color: inherit; }
   text-transform: uppercase;
   color: var(--color-muted);
   opacity: 0;
-  animation: f4-pre-tag-in 0.8s ease-out 2.2s forwards;
+  animation: f4-pre-tag-in 0.9s ease-out 3.1s forwards;
 }
 
 /* Reduced motion — skip the show entirely. Preloader.tsx also checks this. */

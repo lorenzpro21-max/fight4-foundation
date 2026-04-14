@@ -21,8 +21,8 @@ export function Preloader() {
     }
     document.body.style.overflow = 'hidden';
 
-    const exitAt = 2500;
-    const doneAt = 3200;
+    const exitAt = 3500;
+    const doneAt = 4300;
     const t1 = setTimeout(() => setPhase('exiting'), exitAt);
     const t2 = setTimeout(() => {
       setPhase('done');
