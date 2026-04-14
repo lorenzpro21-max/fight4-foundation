@@ -65,6 +65,11 @@ a { color: inherit; }
 }
 .prose-f4 em { color: var(--color-burgundy); font-style: italic; }
 
+@keyframes f4-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
