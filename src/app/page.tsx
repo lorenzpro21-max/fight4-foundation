@@ -1,5 +1,6 @@
 import { Hero } from '@/components/home/Hero';
 import { Partners } from '@/components/home/Partners';
+import { PhotoStrip } from '@/components/home/PhotoStrip';
 import { Pillars } from '@/components/home/Pillars';
 import { Wordmark } from '@/components/home/Wordmark';
 import { Disclaimer } from '@/components/home/Disclaimer';
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <Partners />
       <Pillars />
+      <PhotoStrip />
       <Wordmark />
       <Disclaimer />
     </>

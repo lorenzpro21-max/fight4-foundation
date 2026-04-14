@@ -10,6 +10,7 @@ const sans = Inter({ subsets: ['latin'], weight: ['400', '500', '600'], variable
 const hand = Caveat({ subsets: ['latin'], weight: ['500', '600'], variable: '--font-hand-loaded', display: 'swap' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://fight4-foundation.vercel.app'),
   title: 'FIGHT4 Foundation — By young adults with cancer, for young adults with cancer',
   description: "Every resource personally reviewed by young adults who've been through cancer treatment. Financial aid, support groups, free experiences, and community — in one trusted place.",
   openGraph: {
