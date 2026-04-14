@@ -79,7 +79,7 @@ export async function POST(req: Request) {
     async start(controller) {
       try {
         const response = await ai.models.generateContentStream({
-          model: 'gemini-2.0-flash',
+          model: 'gemini-2.5-flash',
           config: {
             systemInstruction: buildSystemPrompt(locale),
             maxOutputTokens: 900,
